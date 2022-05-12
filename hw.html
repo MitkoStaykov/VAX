@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>81320</title>
+		<meta charset="utf-8">
+		
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		
+		<script src="three.min.js"></script>
+		<script src="vax.js"></script>
+	</head>
+	
+	<body>
+		<script>
+			vaxInit();
+			
+			scene.background = new THREE.Color( 'white' );
+
+			light.position.set( 0, 0, 0 );
+			
+			camera.position.set( 0, 0, 0 );
+			//camera.lookAt( new THREE.Vector3( 0, 0, 1 ) );
+			
+			// жълто поле
+			var box = new THREE.Mesh(
+				new THREE.BoxGeometry( 100, 100, 100 ),
+				new THREE.MeshPhongMaterial({color:"green"})
+				);
+                box.material.side = THREE.BackSide;
+                
+            
+            var coneGeo = new THREE.ConeGeometry( 2, 10, 6, 1 );
+            //var coneMat = new THREE.MeshLambertMaterial({color:"blue"});
+            
+            for(var i = -50 ; i< 50 ; i+=3)
+                for(var j = -50 ; j< 50 ; j+=3)
+                
+                {
+                    var cone = new THREE.Mesh(coneGeo,new THREE.MeshLambertMaterial({color:THREE.Math.randInt(0, 0xFFFFFF)}));            
+                    cone.position.set(i,-50,j);
+                    scene.add(cone);
+                }
+            for(var i = -50 ; i< 50 ; i+=3)
+                for(var j = -50 ; j< 50 ; j+=3)
+                
+                {
+                    var cone = new THREE.Mesh(coneGeo,new THREE.MeshLambertMaterial({color:THREE.Math.randInt(0, 0xFFFFFF)}));            
+                    cone.position.set(i,50,j);
+                    cone.rotation.x = Math.PI ;
+                    scene.add(cone);
+                }
+            for(var i = -50 ; i< 50 ; i+=3)
+                for(var j = -50 ; j< 50 ; j+=3)
+                
+                {
+                    var cone = new THREE.Mesh(coneGeo,new THREE.MeshLambertMaterial({color:THREE.Math.randInt(0, 0xFFFFFF)}));            
+                    cone.position.set(-50,i,j);
+                    cone.rotation.z = - Math.PI /2 ;
+                    scene.add(cone);
+                }
+            for(var i = -50 ; i< 50 ; i+=3)
+                for(var j = -50 ; j< 50 ; j+=3)
+                
+                {
+                    var cone = new THREE.Mesh(coneGeo,new THREE.MeshLambertMaterial({color:THREE.Math.randInt(0, 0xFFFFFF)}));            
+                    cone.position.set(50,i,j);
+                    cone.rotation.z =  Math.PI /2 ;
+                    scene.add(cone);
+                }
+            for(var i = -50 ; i< 50 ; i+=3)
+                for(var j = -50 ; j< 50 ; j+=3)
+                
+                {
+                    var cone = new THREE.Mesh(coneGeo,new THREE.MeshLambertMaterial({color:THREE.Math.randInt(0, 0xFFFFFF)}));            
+                    cone.position.set(i,j,50);
+                    cone.rotation.x = - Math.PI /2 ;
+                    scene.add(cone);
+                }
+            for(var i = -50 ; i< 50 ; i+=3)
+                for(var j = -50 ; j< 50 ; j+=3)
+                
+                {
+                    var cone = new THREE.Mesh(coneGeo,new THREE.MeshLambertMaterial({color:THREE.Math.randInt(0, 0xFFFFFF)}));            
+                    cone.position.set(i,j,-50);
+                    cone.rotation.x =  Math.PI /2 ;
+                    scene.add(cone);
+                }
+            scene.add(box);
+			//var material = new THREE.MeshLambertMaterial( {color: THREE.Math.randInt(0, 0xFFFFFF), transparent:true, opacity:0.5} ),
+			//		mesh = new THREE.Mesh( geometry, material );			
+
+
+				
+				
+			// слушаме за събитието на ориентацията на устройство
+			window.addEventListener( "deviceorientation", deviceOrientation, true);
+
+            function deviceOrientation( event )
+			{
+				
+				var beta = event.beta,
+					gamma = event.gamma;
+
+				//if( angle === null ) return;
+				// поправяме ги, за да ни е удобно
+				/*if( gamma>=0 )
+					gamma = 90-gamma;
+				else
+				{
+					alpha = alpha+180;
+					gamma = -90-gamma;
+				}*/
+				beta = THREE.Math.degToRad( beta );
+				gamma = THREE.Math.degToRad( gamma );
+
+
+			camera.rotation.set( gamma, beta, 0, 'YXZ' );
+            
+            }
+            
+          /*  function animate( t )
+			{
+				scene.rotation.set( t/6, t/7, t/8 );
+			} */
+
+		</script>
+	</body>
+</html>
+
+
