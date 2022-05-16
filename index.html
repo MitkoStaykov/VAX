@@ -54,15 +54,23 @@
 			{
 				//beta-gor dol         X -180 +180
                 //gamma-lqv dqsn okolo Y  -90 +90
-				var beta = event.alpha,
-					gamma = event.gamma;
+				var alpha = event.alpha,
+				gamma = event.gamma;
 
-
-				beta = THREE.Math.degToRad( beta );
+				if( alpha === null ) return;
+				
+				if( gamma>=0 )
+					gamma = 90-gamma;
+				else
+				{
+					alpha = alpha+180;
+					gamma = -90-gamma;
+				}
+									
+				alpha = THREE.Math.degToRad( alpha );
 				gamma = THREE.Math.degToRad( gamma );
 
-
-			camera.rotation.set( gamma, beta, 0, 'YXZ' );
+				camera.rotation.set( gamma, alpha, 0, 'YXZ' );
             
             }
             
